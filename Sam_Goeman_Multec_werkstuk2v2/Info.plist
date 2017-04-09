@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplication​Shortcut​ItemIconType</key>
+			<string>UIApplicationShortIconTypeLocation</string>
+			<key>UIApplication​Shortcut​Item​Title</key>
+			<string>See trees</string>
+			<key>UIApplication​Shortcut​Item​Type</key>
+			<string>ehb.Sam-Goeman-Multec-werkstuk2v2.seeTrees</string>
+		</dict>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -28,6 +39,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Please confirm</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

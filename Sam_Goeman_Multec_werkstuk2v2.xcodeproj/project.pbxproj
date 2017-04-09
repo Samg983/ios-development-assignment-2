@@ -8,13 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		C724B2181E97C3C500BB332A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B2171E97C3C500BB332A /* AppDelegate.swift */; };
-		C724B21A1E97C3C500BB332A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B2191E97C3C500BB332A /* ViewController.swift */; };
+		C724B21A1E97C3C500BB332A /* OverviewTreesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B2191E97C3C500BB332A /* OverviewTreesViewController.swift */; };
 		C724B21D1E97C3C500BB332A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C724B21B1E97C3C500BB332A /* Main.storyboard */; };
 		C724B2201E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C724B21E1E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2.xcdatamodeld */; };
 		C724B2221E97C3C500BB332A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C724B2211E97C3C500BB332A /* Assets.xcassets */; };
 		C724B2251E97C3C500BB332A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C724B2231E97C3C500BB332A /* LaunchScreen.storyboard */; };
 		C724B2301E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B22F1E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2Tests.swift */; };
 		C724B23B1E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B23A1E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2UITests.swift */; };
+		C724B24A1E97C3CC00BB332A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C724B2491E97C3CC00BB332A /* MapKit.framework */; };
+		C724B24C1E97C8EC00BB332A /* DetailTreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B24B1E97C8EC00BB332A /* DetailTreeViewController.swift */; };
+		C724B24E1E97CAE900BB332A /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B24D1E97CAE900BB332A /* TableViewController.swift */; };
+		C724B2501E97E41700BB332A /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B24F1E97E41700BB332A /* CustomAnnotation.swift */; };
+		C7DDE0D61E9A1DD000C9FD8B /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDE0D51E9A1DD000C9FD8B /* DataViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +42,7 @@
 /* Begin PBXFileReference section */
 		C724B2141E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sam_Goeman_Multec_werkstuk2v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C724B2171E97C3C500BB332A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C724B2191E97C3C500BB332A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C724B2191E97C3C500BB332A /* OverviewTreesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewTreesViewController.swift; sourceTree = "<group>"; };
 		C724B21C1E97C3C500BB332A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C724B21F1E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sam_Goeman_Multec_werkstuk2v2.xcdatamodel; sourceTree = "<group>"; };
 		C724B2211E97C3C500BB332A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +54,11 @@
 		C724B2361E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Sam_Goeman_Multec_werkstuk2v2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C724B23A1E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sam_Goeman_Multec_werkstuk2v2UITests.swift; sourceTree = "<group>"; };
 		C724B23C1E97C3C500BB332A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C724B2491E97C3CC00BB332A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C724B24B1E97C8EC00BB332A /* DetailTreeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTreeViewController.swift; sourceTree = "<group>"; };
+		C724B24D1E97CAE900BB332A /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		C724B24F1E97E41700BB332A /* CustomAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
+		C7DDE0D51E9A1DD000C9FD8B /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C724B24A1E97C3CC00BB332A /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +94,7 @@
 				C724B22E1E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2Tests */,
 				C724B2391E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2UITests */,
 				C724B2151E97C3C500BB332A /* Products */,
+				C724B2481E97C3CC00BB332A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -100,12 +112,16 @@
 			isa = PBXGroup;
 			children = (
 				C724B2171E97C3C500BB332A /* AppDelegate.swift */,
-				C724B2191E97C3C500BB332A /* ViewController.swift */,
+				C724B2191E97C3C500BB332A /* OverviewTreesViewController.swift */,
 				C724B21B1E97C3C500BB332A /* Main.storyboard */,
+				C724B24B1E97C8EC00BB332A /* DetailTreeViewController.swift */,
 				C724B2211E97C3C500BB332A /* Assets.xcassets */,
 				C724B2231E97C3C500BB332A /* LaunchScreen.storyboard */,
 				C724B2261E97C3C500BB332A /* Info.plist */,
 				C724B21E1E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2.xcdatamodeld */,
+				C724B24D1E97CAE900BB332A /* TableViewController.swift */,
+				C724B24F1E97E41700BB332A /* CustomAnnotation.swift */,
+				C7DDE0D51E9A1DD000C9FD8B /* DataViewController.swift */,
 			);
 			path = Sam_Goeman_Multec_werkstuk2v2;
 			sourceTree = "<group>";
@@ -126,6 +142,14 @@
 				C724B23C1E97C3C500BB332A /* Info.plist */,
 			);
 			path = Sam_Goeman_Multec_werkstuk2v2UITests;
+			sourceTree = "<group>";
+		};
+		C724B2481E97C3CC00BB332A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C724B2491E97C3CC00BB332A /* MapKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,6 +222,11 @@
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = 9YTPEWT758;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					C724B22A1E97C3C500BB332A = {
 						CreatedOnToolsVersion = 8.3;
@@ -265,9 +294,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C724B21A1E97C3C500BB332A /* ViewController.swift in Sources */,
+				C724B21A1E97C3C500BB332A /* OverviewTreesViewController.swift in Sources */,
+				C7DDE0D61E9A1DD000C9FD8B /* DataViewController.swift in Sources */,
 				C724B2201E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2.xcdatamodeld in Sources */,
 				C724B2181E97C3C500BB332A /* AppDelegate.swift in Sources */,
+				C724B24E1E97CAE900BB332A /* TableViewController.swift in Sources */,
+				C724B2501E97E41700BB332A /* CustomAnnotation.swift in Sources */,
+				C724B24C1E97C8EC00BB332A /* DetailTreeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -518,6 +551,7 @@
 				C724B2411E97C3C500BB332A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C724B2421E97C3C500BB332A /* Build configuration list for PBXNativeTarget "Sam_Goeman_Multec_werkstuk2v2Tests" */ = {
 			isa = XCConfigurationList;
@@ -526,6 +560,7 @@
 				C724B2441E97C3C500BB332A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C724B2451E97C3C500BB332A /* Build configuration list for PBXNativeTarget "Sam_Goeman_Multec_werkstuk2v2UITests" */ = {
 			isa = XCConfigurationList;
@@ -534,6 +569,7 @@
 				C724B2471E97C3C500BB332A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
