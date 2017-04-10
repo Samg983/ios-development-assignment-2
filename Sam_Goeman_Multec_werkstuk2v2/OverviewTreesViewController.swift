@@ -35,7 +35,7 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
         self.setUpMap()
         
         //self.makeRequestAndGetData()
-        
+        //Test
         self.getData()
         
        // let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: /*#selector(makeRequestAndGetData)*/)
