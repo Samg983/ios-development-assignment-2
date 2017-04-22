@@ -17,11 +17,15 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
     
     var trees: [Tree] = []
     
+    var annotations: [CustomAnnotation] = []
+    
     var adres:String = ""
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    let defaults = UserDefaults.standard
     
     
     //outlets
@@ -35,11 +39,24 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
         self.setUpMap()
         
         //self.makeRequestAndGetData()
-        //Test
+        
+        /*let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+        
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating();
+        
+        alert.view.addSubview(loadingIndicator)
+        //present(alert, animated: true, completion: nil)
+        
+        dismiss(animated: false, completion: nil)*/
+        
         self.getData()
         
-       // let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: /*#selector(makeRequestAndGetData)*/)
-        //navigationItem.rightBarButtonItem = button
+        
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: #selector(addAnnotationToMap))
+        navigationItem.rightBarButtonItem = button
     }
     
     
@@ -50,7 +67,7 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
     
     func makeRequestAndGetData(){
         //url request
-        let url = URL(string: "https://opendata.brussel.be/api/records/1.0/search/?dataset=opmerkelijke-bomen&lang=en&rows=5000")
+        let url = URL(string: "https://opendata.brussel.be/api/records/1.0/search/?dataset=opmerkelijke-bomen&lang=en&rows=1050")
         let urlRequest = URLRequest(url: url!)
         
         //setup session
@@ -88,7 +105,7 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
                         
                         
                         if let fields = element["fields"] as? [String: Any] {
-                            
+                            print(fields);
                             if let beplanting = fields["beplanting"] {
                                 tree.beplanting = beplanting as? String
                             }
@@ -129,55 +146,112 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
                         self.appDelegate.saveContext()
                         
                     }
-                    self.getData()
+                    
                 }
                 
             } catch {
                 
             }
+            self.getData()
         }
         task.resume()
         
     }
     
     func getData() {
+        DispatchQueue.global(qos: .background).async {
+        
         do {
-            self.trees = try context.fetch(Tree.fetchRequest())
+            self.trees = try self.context.fetch(Tree.fetchRequest())
             print(self.trees.count)
             var teller = 0
             if self.trees.count > 0{
                 for item in self.trees {
                     
                     if(item.adres != nil) {
+                        //print(item.adres!)
                         teller += 1
                         self.convertStringToCoordinateAndAddAnnotation(adres: item.adres!, title: item.soort!, tree: item)
                     }
                 }
+                
+                self.defaults.set(NSKeyedArchiver.archivedData(withRootObject: self.annotations), forKey: "savedAnnotations")
+                
                 print("Teller: " + String(teller))
             }
         } catch {
             print("Fetching Failed")
         }
+       }
     }
+    
+    /*func convertStringToCoordinateAndAddAnnotation(adres:String, title:String, tree:Tree){
+        
+            let geoCoder = CLGeocoder()
+            sleep(UInt32(1.5))
+            geoCoder.geocodeAddressString(adres) { (placemarks, error) in
+                /*if let placemark = placemarks?.first {
+                 self.placeCoordinate.append(placemark.location!.coordinate)
+                 print(self.placeCoordinate)
+                 }*/
+                
+                if let error = error {
+                    print("Unable to Forward Geocode Address (\(error))")
+                    
+                } else {
+                    var location: CLLocation?
+                    
+                    if let placemarks = placemarks, placemarks.count > 0 {
+                        location = placemarks.first?.location
+                    }
+                    
+                    if let location = location {
+                        let coordinate:CLLocationCoordinate2D = location.coordinate
+                        self.appDelegate.placeCoordinate.append(coordinate)
+                        self.addAnnotationToMap(tree: tree, title: title, coordinate: coordinate)
+                        print(self.appDelegate.placeCoordinate.count)
+                    } else {
+                        //locationLabel.text = "No Matching Location Found"
+                    }
+                }
+            }
+        
+        
+    }*/
+    
     
     func convertStringToCoordinateAndAddAnnotation(adres:String, title:String, tree:Tree){
         let geoCoder = CLGeocoder()
+        sleep(1)
         geoCoder.geocodeAddressString(adres) { (placemarks, error) in
             guard
+                
                 let placemarks = placemarks,
                 let location = placemarks.first?.location
                 else {
-                    // handle no location found
+                    print("kan niet vinden: " + adres)
+                    
                     return
             }
             let annotation = CustomAnnotation(coordinate: location.coordinate, title: title, tree: tree)
-            // annotation.coordinate = location.coordinate
-            //annotation.title = title
-            //annotation.tree = tree
             
-            self.mapView.addAnnotation(annotation)
+            self.annotations.append(annotation)
             
+            print(self.annotations.count)
+            
+            //self.mapView.addAnnotation(annotation)
+
         }
+    }
+    
+    func addAnnotationToMap(){
+        print("tap")
+        let array = defaults.object(forKey: "savedAnnotations") as? [String] ?? [String]()
+        print(array)
+        for item in array {
+          self.mapView.addAnnotation(item as! MKAnnotation)
+        }
+        
     }
     
     
@@ -207,7 +281,6 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
         else {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
             annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            //.detailDisclosure
         }
         
         if let annotationView = annotationView {
@@ -255,7 +328,7 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
             print ("There was an error")
         }
     }
-
+    
     
     /*func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
      let center = CLLocationCoordinate2D(latitude : userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)

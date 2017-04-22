@@ -37,6 +37,8 @@ class DetailTreeViewController: UIViewController, MKMapViewDelegate {
         beplanting.text = tree.beplanting
         beplanting.sizeToFit()
         status.text = tree.status
+        //status.lineBreakMode = .byWordWrapping
+        //status.numberOfLines = 2
         status.sizeToFit()
         soort.text = tree.soort
         soort.sizeToFit()
