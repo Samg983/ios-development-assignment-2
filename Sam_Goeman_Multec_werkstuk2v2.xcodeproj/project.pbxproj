@@ -19,6 +19,7 @@
 		C724B24C1E97C8EC00BB332A /* DetailTreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B24B1E97C8EC00BB332A /* DetailTreeViewController.swift */; };
 		C724B24E1E97CAE900BB332A /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B24D1E97CAE900BB332A /* TableViewController.swift */; };
 		C724B2501E97E41700BB332A /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B24F1E97E41700BB332A /* CustomAnnotation.swift */; };
+		C72AF97D1EACCE7E0010A387 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C72AF97F1EACCE7E0010A387 /* Localizable.strings */; };
 		C7DDE0D61E9A1DD000C9FD8B /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDE0D51E9A1DD000C9FD8B /* DataViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +59,10 @@
 		C724B24B1E97C8EC00BB332A /* DetailTreeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailTreeViewController.swift; sourceTree = "<group>"; };
 		C724B24D1E97CAE900BB332A /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		C724B24F1E97E41700BB332A /* CustomAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAnnotation.swift; sourceTree = "<group>"; };
+		C72AF97B1EACCD9A0010A387 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
+		C72AF97C1EACCD9A0010A387 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C72AF97E1EACCE7E0010A387 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C72AF9801EACCE940010A387 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C7DDE0D51E9A1DD000C9FD8B /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,6 +124,7 @@
 				C724B2231E97C3C500BB332A /* LaunchScreen.storyboard */,
 				C724B2261E97C3C500BB332A /* Info.plist */,
 				C724B21E1E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2.xcdatamodeld */,
+				C72AF97F1EACCE7E0010A387 /* Localizable.strings */,
 				C724B24D1E97CAE900BB332A /* TableViewController.swift */,
 				C724B24F1E97E41700BB332A /* CustomAnnotation.swift */,
 				C7DDE0D51E9A1DD000C9FD8B /* DataViewController.swift */,
@@ -249,6 +255,7 @@
 			knownRegions = (
 				en,
 				Base,
+				nl,
 			);
 			mainGroup = C724B20B1E97C3C500BB332A;
 			productRefGroup = C724B2151E97C3C500BB332A /* Products */;
@@ -268,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C724B2251E97C3C500BB332A /* LaunchScreen.storyboard in Resources */,
+				C72AF97D1EACCE7E0010A387 /* Localizable.strings in Resources */,
 				C724B2221E97C3C500BB332A /* Assets.xcassets in Resources */,
 				C724B21D1E97C3C500BB332A /* Main.storyboard in Resources */,
 			);
@@ -340,6 +348,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				C724B21C1E97C3C500BB332A /* Base */,
+				C72AF97B1EACCD9A0010A387 /* nl */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -348,8 +357,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				C724B2241E97C3C500BB332A /* Base */,
+				C72AF97C1EACCD9A0010A387 /* nl */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		C72AF97F1EACCE7E0010A387 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C72AF97E1EACCE7E0010A387 /* en */,
+				C72AF9801EACCE940010A387 /* nl */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -359,6 +378,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -379,6 +399,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_ACTIVITY_MODE = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -409,6 +430,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -429,6 +451,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_ACTIVITY_MODE = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

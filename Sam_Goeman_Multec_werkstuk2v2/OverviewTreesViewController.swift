@@ -4,7 +4,7 @@
 //
 //  Created by Sam Goeman on 06/04/2017.
 //  Copyright © 2017 Sam Goeman. All rights reserved.
-//
+//  http://stackoverflow.com/questions/39825278/how-to-remove-mutable-array-element-from-nsuserdefaults
 
 import UIKit
 import MapKit
@@ -52,7 +52,11 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
         
         dismiss(animated: false, completion: nil)*/
         
-        self.getData()
+        //self.getData()
+        
+        //self.addAnnotationToMap()
+        
+        //self.defaults.removeObject(forKey: "savedAnnotations")
         
         
         let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: #selector(addAnnotationToMap))
@@ -159,7 +163,7 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
     }
     
     func getData() {
-        DispatchQueue.global(qos: .background).async {
+        //DispatchQueue.global(qos: .background).async {
         
         do {
             self.trees = try self.context.fetch(Tree.fetchRequest())
@@ -175,14 +179,15 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
                     }
                 }
                 
-                self.defaults.set(NSKeyedArchiver.archivedData(withRootObject: self.annotations), forKey: "savedAnnotations")
+                /*self.defaults.set(NSKeyedArchiver.archivedData(withRootObject: self.annotations), forKey: "savedAnnotations")
+                self.defaults.synchronize()
                 
-                print("Teller: " + String(teller))
+                print("Teller: " + String(teller))*/
             }
         } catch {
             print("Fetching Failed")
         }
-       }
+       //}
     }
     
     /*func convertStringToCoordinateAndAddAnnotation(adres:String, title:String, tree:Tree){
@@ -233,24 +238,40 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
                     
                     return
             }
+            
             let annotation = CustomAnnotation(coordinate: location.coordinate, title: title, tree: tree)
             
+     
             self.annotations.append(annotation)
             
             print(self.annotations.count)
             
-            //self.mapView.addAnnotation(annotation)
+            self.mapView.addAnnotation(annotation)
 
         }
     }
     
     func addAnnotationToMap(){
         print("tap")
-        let array = defaults.object(forKey: "savedAnnotations") as? [String] ?? [String]()
-        print(array)
-        for item in array {
-          self.mapView.addAnnotation(item as! MKAnnotation)
+        /*for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+            print("\(key) = \(value) \n")
         }
+        
+        if let data = UserDefaults.standard.data(forKey: "savedAnnotations"){
+            let myAnnotations = NSKeyedUnarchiver.unarchiveObject(with: data) as? [CustomAnnotation]
+            print(myAnnotations)
+        } else {
+            print("There is an issue")
+        }*/
+        //let array = defaults.object(forKey: "savedAnnotations") as? [CustomAnnotation]
+        //print(array)
+        /*for item in array {
+          self.mapView.addAnnotation(item as! MKAnnotation)
+        }*/
+        
+        /*let decoded = defaults.object(forKey: "savedAnnotations") as! Data
+        print(decoded)
+        let decodedAnnotations = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [CustomAnnotation]*/
         
     }
     

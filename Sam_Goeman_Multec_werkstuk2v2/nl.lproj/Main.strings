@@ -1,0 +1,27 @@
+
+/* Class = "UILabel"; text = "positie"; ObjectID = "8Si-MO-FLa"; */
+"8Si-MO-FLa.text" = "positie";
+
+/* Class = "UILabel"; text = "omtrek"; ObjectID = "Ru0-tH-NYn"; */
+"Ru0-tH-NYn.text" = "omtrek";
+
+/* Class = "UILabel"; text = "soort"; ObjectID = "TXu-22-bW9"; */
+"TXu-22-bW9.text" = "soort";
+
+/* Class = "UILabel"; text = "Beplanting:"; ObjectID = "XW1-33-Xye"; */
+"XW1-33-Xye.text" = "Beplanting:";
+
+/* Class = "UILabel"; text = "Omtrek:"; ObjectID = "Znz-Ml-mkZ"; */
+"Znz-Ml-mkZ.text" = "Omtrek:";
+
+/* Class = "UINavigationItem"; title = "Trees"; ObjectID = "eek-8r-z3a"; */
+"eek-8r-z3a.title" = "Bomen";
+
+/* Class = "UILabel"; text = "beplanting"; ObjectID = "hkG-sS-hec"; */
+"hkG-sS-hec.text" = "beplanting";
+
+/* Class = "UILabel"; text = "adres"; ObjectID = "iDN-BL-ABE"; */
+"iDN-BL-ABE.text" = "adres";
+
+/* Class = "UILabel"; text = "status"; ObjectID = "str-Zx-xNL"; */
+"str-Zx-xNL.text" = "status";
