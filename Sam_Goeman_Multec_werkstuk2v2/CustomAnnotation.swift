@@ -10,24 +10,25 @@ import UIKit
 import MapKit
 
 
-class CustomAnnotation: NSObject, NSCoding, MKAnnotation {
+class CustomAnnotation: NSObject, MKAnnotation {
     
-    var tree:Tree!
     var title:String?
     var coordinate: CLLocationCoordinate2D
     var latitude:CLLocationDegrees
     var longitude:CLLocationDegrees
+    var elements:[Tree]
     
     
-    init(coordinate:CLLocationCoordinate2D, title:String, tree:Tree) {
-        self.tree = tree
+    init(coordinate:CLLocationCoordinate2D, title:String, elements:[Tree]) {
+       
         self.title = title
         self.coordinate = coordinate
         self.latitude = coordinate.latitude
         self.longitude = coordinate.longitude
+        self.elements = elements
     }
     
-    required init? (coder aDecoder: NSCoder){
+    /*required init? (coder aDecoder: NSCoder){
         self.tree = aDecoder.decodeObject(forKey: "tree") as! Tree
         self.title = aDecoder.decodeObject(forKey: "title") as? String
         self.latitude = aDecoder.decodeDouble(forKey: "latitude")
@@ -40,5 +41,5 @@ class CustomAnnotation: NSObject, NSCoding, MKAnnotation {
         aCoder.encode(title, forKey: "title")
         aCoder.encode(latitude, forKey: "latitude")
         aCoder.encode(longitude, forKey: "longitude")
-    }
+    }*/
 }

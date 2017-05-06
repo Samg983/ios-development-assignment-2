@@ -12,11 +12,10 @@ import CoreLocation
 
 class DetailTreeViewController: UIViewController, MKMapViewDelegate {
     
-
-    //var tree = Tree(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
     
-    var annotation = CustomAnnotation(coordinate: CLLocationCoordinate2D(), title: "", tree: Tree(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext))
-
+    var tree = Tree(context: (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext)
+    
+    
     @IBOutlet weak var adres: UILabel!
     @IBOutlet weak var beplanting: UILabel!
     @IBOutlet weak var status: UILabel!
@@ -28,37 +27,89 @@ class DetailTreeViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let tree = annotation.tree!
-
-        self.title = tree.soort
+        //TODO klopt nie
         
-        adres.text = tree.adres
-        adres.sizeToFit()
-        beplanting.text = tree.beplanting
-        beplanting.sizeToFit()
-        status.text = tree.status
-        //status.lineBreakMode = .byWordWrapping
-        //status.numberOfLines = 2
-        status.sizeToFit()
-        soort.text = tree.soort
-        soort.sizeToFit()
-        positie.text = tree.positie
-        positie.sizeToFit()
-        omtrek.text = String(tree.omtrek)
-        omtrek.sizeToFit()
+        print("tada")
         
-        self.mapView.addAnnotation(annotation)
+        
+        if tree.soort != "" {
+            print(tree.soort!)
+            
+            self.title = tree.soort
+            
+            adres.text = tree.adres
+            adres.sizeToFit()
+            beplanting.text = tree.beplanting
+            beplanting.sizeToFit()
+            status.text = tree.status
+            status.sizeToFit()
+            soort.text = tree.soort
+            soort.sizeToFit()
+            positie.text = tree.positie
+            positie.sizeToFit()
+            omtrek.text = String(tree.omtrek)
+            omtrek.sizeToFit()
+            let coordinate = CLLocationCoordinate2D(latitude: tree.latitude, longitude: tree.longitude)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            self.mapView.addAnnotation(annotation)
+        }
+        
+        /*if annotation.title == "" {
+            
+            print("annotation")
+            self.title = treeSeg.soort
+            
+            adres.text = treeSeg.adres
+            adres.sizeToFit()
+            beplanting.text = treeSeg.beplanting
+            beplanting.sizeToFit()
+            status.text = treeSeg.status
+            status.sizeToFit()
+            soort.text = treeSeg.soort
+            soort.sizeToFit()
+            positie.text = treeSeg.positie
+            positie.sizeToFit()
+            omtrek.text = String(treeSeg.omtrek)
+            omtrek.sizeToFit()
+            
+            
+        } else {
+            
+            /*let tree = annotation.tree!
+            
+            self.title = tree.soort
+            
+            adres.text = tree.adres
+            adres.sizeToFit()
+            beplanting.text = tree.beplanting
+            beplanting.sizeToFit()
+            status.text = tree.status
+            status.sizeToFit()
+            soort.text = tree.soort
+            soort.sizeToFit()
+            positie.text = tree.positie
+            positie.sizeToFit()
+            omtrek.text = String(tree.omtrek)
+            omtrek.sizeToFit()
+            
+            self.mapView.addAnnotation(annotation)*/
+            
+            
+        }*/
+        
+        
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func openMapForPlace() {
+   /* func openMapForPlace() {
         let regionDistance:CLLocationDistance = 10000
-        let coordinates = self.annotation.coordinate
+        //let coordinates = self.annotation.coordinate
         let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, regionDistance, regionDistance)
         let options = [
             MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center),
@@ -66,10 +117,10 @@ class DetailTreeViewController: UIViewController, MKMapViewDelegate {
         ]
         let placemark = MKPlacemark(coordinate: coordinates, addressDictionary: nil)
         let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = self.annotation.tree.adres
+        //mapItem.name = self.annotation.tree.adres
         mapItem.openInMaps(launchOptions: options)
-    }
+    }*/
     
     
-
+    
 }

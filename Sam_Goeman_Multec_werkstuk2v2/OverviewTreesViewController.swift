@@ -5,13 +5,19 @@
 //  Created by Sam Goeman on 06/04/2017.
 //  Copyright © 2017 Sam Goeman. All rights reserved.
 //  http://stackoverflow.com/questions/39825278/how-to-remove-mutable-array-element-from-nsuserdefaults
+//  http://stackoverflow.com/questions/28489227/swift-ios-dates-and-times-in-different-format
+//  http://stackoverflow.com/questions/30635160/how-to-check-if-the-ios-app-is-running-for-the-first-time-using-swift
+//  http://stackoverflow.com/questions/32850094/how-do-i-remove-all-map-annotations-in-swift-2
+//  http://stackoverflow.com/questions/27960556/loading-an-overlay-when-running-long-tasks-in-ios
+//  https://digitalleaves.com/blog/2016/12/building-the-perfect-ios-map-ii-completely-custom-annotation-views/
+// http://stackoverflow.com/questions/36095510/how-to-call-performseguewithidentifier-from-xib
 
 import UIKit
 import MapKit
 import CoreLocation
 import CoreData
 
-class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, CustomViewAnnotationDelegate {
     
     var locationManager:CLLocationManager = CLLocationManager()
     
@@ -19,7 +25,13 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
     
     var annotations: [CustomAnnotation] = []
     
+    var treesWithAddress:[Tree] = []
+    
+    var selectedTree:Tree?
+    
     var adres:String = ""
+    
+    let annotationIdentifier = "Identifier"
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -31,45 +43,76 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
     //outlets
     
     @IBOutlet weak var mapView: MKMapView!
-
+    @IBOutlet weak var lblDatumLaatstBijgewerkt: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.deleteAllRecords()
         self.setUpMap()
         
-        //self.makeRequestAndGetData()
+        self.checkFirstRun()
         
-        /*let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
-        
-        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        loadingIndicator.startAnimating();
-        
-        alert.view.addSubview(loadingIndicator)
-        //present(alert, animated: true, completion: nil)
-        
-        dismiss(animated: false, completion: nil)*/
-        
-        //self.getData()
-        
-        //self.addAnnotationToMap()
-        
-        //self.defaults.removeObject(forKey: "savedAnnotations")
+        self.getCurrentTime()
         
         
-        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: #selector(addAnnotationToMap))
+        let customViewAnnotation = CustomViewAnnotation()
+        customViewAnnotation.delegate = self
+        
+        
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.refresh, target: self, action: #selector(refresh))
         navigationItem.rightBarButtonItem = button
     }
     
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func checkFirstRun(){
+        if(UserDefaults.standard.bool(forKey: "HasLaunchedOnce")){
+            print("not first run")
+            self.getData()
+        } else {
+            print("first run")
+            UserDefaults.standard.set(true, forKey: "HasLaunchedOnce")
+            UserDefaults.standard.synchronize()
+            self.deleteAllRecords()
+            self.makeRequestAndGetData()
+        }
+    }
+    
+    
+    
+    func setCurrentDateAndTime(){
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "dd/MM/yyyy hh:mm a"
+        let convertedDate: String = dateFormatter.string(from: currentDate)
+        
+        self.defaults.setValue(convertedDate, forKey: "lastUpdate")
+        self.defaults.synchronize()
+        
+        self.lblDatumLaatstBijgewerkt.text = NSLocalizedString("Last update: ", comment: "") + convertedDate
+        
+    }
+    
+    func getCurrentTime(){
+        if let stringDate:String = self.defaults.value(forKey: "lastUpdate") as? String {
+            lblDatumLaatstBijgewerkt.text = NSLocalizedString("Last update: ", comment: "") + stringDate
+            lblDatumLaatstBijgewerkt.sizeToFit()
+        }
+        
+    }
+    
+    func refresh(){
+        let allPlacedAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allPlacedAnnotations)
+        self.deleteAllRecords()
+        self.makeRequestAndGetData()
+        
+        
     }
     
     func makeRequestAndGetData(){
+        self.setCurrentDateAndTime()
         //url request
         let url = URL(string: "https://opendata.brussel.be/api/records/1.0/search/?dataset=opmerkelijke-bomen&lang=en&rows=1050")
         let urlRequest = URLRequest(url: url!)
@@ -106,8 +149,6 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
                         
                         let tree = Tree(context: self.context)
                         
-                        
-                        
                         if let fields = element["fields"] as? [String: Any] {
                             print(fields);
                             if let beplanting = fields["beplanting"] {
@@ -116,6 +157,7 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
                             
                             if let straat = fields["straat"] {
                                 tree.adres = (straat as? String)! + ", Brussel"
+                                self.convertStringToCoordinate(adres: tree.adres!, tree: tree)
                             }
                             
                             if let status = fields["status"] {
@@ -140,12 +182,6 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
                             
                             
                             
-                            /*if let gemeente = fields["gemeente"] {
-                             tree.setValue(gemeente, forKey: "gemeente")
-                             self.adres += String(describing: gemeente)
-                             print(self.adres)
-                             }*/
-                            
                         }
                         self.appDelegate.saveContext()
                         
@@ -157,14 +193,16 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
                 
             }
             self.getData()
+            
         }
         task.resume()
+        
+        
         
     }
     
     func getData() {
-        //DispatchQueue.global(qos: .background).async {
-        
+        print("getdata")
         do {
             self.trees = try self.context.fetch(Tree.fetchRequest())
             print(self.trees.count)
@@ -173,59 +211,22 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
                 for item in self.trees {
                     
                     if(item.adres != nil) {
-                        //print(item.adres!)
                         teller += 1
-                        self.convertStringToCoordinateAndAddAnnotation(adres: item.adres!, title: item.soort!, tree: item)
+                        self.placeAnnotationsOnMap(tree: item)
                     }
                 }
                 
-                /*self.defaults.set(NSKeyedArchiver.archivedData(withRootObject: self.annotations), forKey: "savedAnnotations")
-                self.defaults.synchronize()
                 
-                print("Teller: " + String(teller))*/
+                print("Teller: " + String(teller))
             }
         } catch {
             print("Fetching Failed")
         }
-       //}
     }
     
-    /*func convertStringToCoordinateAndAddAnnotation(adres:String, title:String, tree:Tree){
-        
-            let geoCoder = CLGeocoder()
-            sleep(UInt32(1.5))
-            geoCoder.geocodeAddressString(adres) { (placemarks, error) in
-                /*if let placemark = placemarks?.first {
-                 self.placeCoordinate.append(placemark.location!.coordinate)
-                 print(self.placeCoordinate)
-                 }*/
-                
-                if let error = error {
-                    print("Unable to Forward Geocode Address (\(error))")
-                    
-                } else {
-                    var location: CLLocation?
-                    
-                    if let placemarks = placemarks, placemarks.count > 0 {
-                        location = placemarks.first?.location
-                    }
-                    
-                    if let location = location {
-                        let coordinate:CLLocationCoordinate2D = location.coordinate
-                        self.appDelegate.placeCoordinate.append(coordinate)
-                        self.addAnnotationToMap(tree: tree, title: title, coordinate: coordinate)
-                        print(self.appDelegate.placeCoordinate.count)
-                    } else {
-                        //locationLabel.text = "No Matching Location Found"
-                    }
-                }
-            }
-        
-        
-    }*/
     
     
-    func convertStringToCoordinateAndAddAnnotation(adres:String, title:String, tree:Tree){
+    func convertStringToCoordinate(adres:String, tree:Tree){
         let geoCoder = CLGeocoder()
         sleep(1)
         geoCoder.geocodeAddressString(adres) { (placemarks, error) in
@@ -239,94 +240,96 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
                     return
             }
             
-            let annotation = CustomAnnotation(coordinate: location.coordinate, title: title, tree: tree)
+            tree.latitude = location.coordinate.latitude
+            tree.longitude = location.coordinate.longitude
             
-     
-            self.annotations.append(annotation)
-            
-            print(self.annotations.count)
-            
+            print(tree.latitude);
+        }
+    }
+    
+    
+    func placeAnnotationsOnMap(tree:Tree){
+        let allAnnotations = self.mapView.annotations
+        
+        
+        if allAnnotations.isEmpty {
+            var array = [Tree]()
+            array.append(tree)
+            let annotation = CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: tree.latitude, longitude: tree.longitude), title: tree.soort!, elements: array)
             self.mapView.addAnnotation(annotation)
-
-        }
-    }
-    
-    func addAnnotationToMap(){
-        print("tap")
-        /*for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
-            print("\(key) = \(value) \n")
-        }
-        
-        if let data = UserDefaults.standard.data(forKey: "savedAnnotations"){
-            let myAnnotations = NSKeyedUnarchiver.unarchiveObject(with: data) as? [CustomAnnotation]
-            print(myAnnotations)
+            
+            
         } else {
-            print("There is an issue")
-        }*/
-        //let array = defaults.object(forKey: "savedAnnotations") as? [CustomAnnotation]
-        //print(array)
-        /*for item in array {
-          self.mapView.addAnnotation(item as! MKAnnotation)
-        }*/
-        
-        /*let decoded = defaults.object(forKey: "savedAnnotations") as! Data
-        print(decoded)
-        let decodedAnnotations = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [CustomAnnotation]*/
-        
-    }
-    
-    
-    func checkFirstRun(){
-        if(UserDefaults.standard.bool(forKey: "HasLaunchedOnce")){
-            self.getData()
-        } else {
-            UserDefaults.standard.set(true, forKey: "HasLaunchedOnce")
-            UserDefaults.standard.synchronize()
-            self.makeRequestAndGetData()
+            let dubbelePins = self.mapView.annotations.filter( { return $0.coordinate.latitude == tree.latitude  && $0.coordinate.longitude == tree.longitude} )
+            
+            if dubbelePins.count != 0 {
+                
+                let onMapAnnotations = self.mapView.annotations.filter( { return $0.coordinate.latitude == tree.latitude  } )
+                
+                if !onMapAnnotations.isEmpty {
+                    if let onMapAnnotation = onMapAnnotations[0] as? CustomAnnotation {
+                        
+                        onMapAnnotation.elements.append(tree)
+                    }
+                }
+                
+                
+                
+            }
+            else{
+                //print("PIN bestaat nog niet")
+                var array = [Tree]()
+                array.append(tree)
+                let annotation = CustomAnnotation(coordinate: CLLocationCoordinate2D(latitude: tree.latitude, longitude: tree.longitude), title: tree.soort!, elements: array)
+                self.mapView.addAnnotation(annotation)
+                
+            }
+            
+            
         }
+        
+        
     }
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard !(annotation is MKUserLocation) else {
-            return nil
+        if annotation is MKUserLocation { return nil }
+        
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: self.annotationIdentifier)
+        
+        if annotationView == nil {
+            annotationView = TreesAnnotationView(annotation: annotation, reuseIdentifier: self.annotationIdentifier)
+            (annotationView as! TreesAnnotationView).customViewAnnotationDelegate = self        } else {
+            annotationView!.annotation = annotation
         }
         
-        let annotationIdentifier = "Identifier"
-        var annotationView: MKAnnotationView?
-        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
-            annotationView = dequeuedAnnotationView
-            annotationView?.annotation = annotation
-           
-        }
-        else {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        }
-        
-        if let annotationView = annotationView {
-            annotationView.canShowCallout = true
-            annotationView.image = UIImage(named: "tree")
-        }
         return annotationView
+        
     }
     
     
-    
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        performSegue(withIdentifier: "toDetailTree", sender: view)
+    func performSegueFromView(tree:Tree){
+        self.selectedTree = tree
+        self.performSegue(withIdentifier: "toDetailTree", sender: self)
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetailTree" {
             if let nextVC = segue.destination as? DetailTreeViewController {
-                let view = sender as! MKAnnotationView
-                let a = view.annotation as! CustomAnnotation
-            
-                nextVC.annotation = a
+                nextVC.tree = self.selectedTree!
             }
         }
     }
+    
     
     func setUpMap(){
         self.locationManager.delegate = self
@@ -338,6 +341,16 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
     }
     
     func deleteAllRecords() {
+        let alert = UIAlertController(title: nil, message: "Please wait...", preferredStyle: .alert)
+        
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        loadingIndicator.startAnimating();
+        
+        alert.view.addSubview(loadingIndicator)
+        
+        present(alert, animated: true, completion: nil)
         
         let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Tree")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
@@ -345,18 +358,11 @@ class OverviewTreesViewController: UIViewController, MKMapViewDelegate, CLLocati
         do {
             try self.context.execute(deleteRequest)
             try self.context.save()
+            dismiss(animated: false, completion: nil)
         } catch {
             print ("There was an error")
         }
     }
     
-    
-    /*func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-     let center = CLLocationCoordinate2D(latitude : userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
-     
-     let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-     
-     mapView.setRegion(region, animated: true)
-     }*/
     
 }

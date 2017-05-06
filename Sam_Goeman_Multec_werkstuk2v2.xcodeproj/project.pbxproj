@@ -20,7 +20,13 @@
 		C724B24E1E97CAE900BB332A /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B24D1E97CAE900BB332A /* TableViewController.swift */; };
 		C724B2501E97E41700BB332A /* CustomAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C724B24F1E97E41700BB332A /* CustomAnnotation.swift */; };
 		C72AF97D1EACCE7E0010A387 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C72AF97F1EACCE7E0010A387 /* Localizable.strings */; };
+		C79B05EE1EBD135D00964EA0 /* Bezier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79B05ED1EBD135D00964EA0 /* Bezier.swift */; };
+		C79B05F01EBD13F300964EA0 /* TreesAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79B05EF1EBD13F300964EA0 /* TreesAnnotationView.swift */; };
 		C7DDE0D61E9A1DD000C9FD8B /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DDE0D51E9A1DD000C9FD8B /* DataViewController.swift */; };
+		C7F2863F1EB8D8850077A54C /* CustomViewAnnotation.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7F2863E1EB8D8850077A54C /* CustomViewAnnotation.xib */; };
+		C7F286421EB8DA070077A54C /* AnnotationTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F286401EB8DA070077A54C /* AnnotationTableCell.swift */; };
+		C7F286431EB8DA070077A54C /* AnnotationTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7F286411EB8DA070077A54C /* AnnotationTableCell.xib */; };
+		C7F286471EB8DAB90077A54C /* CustomViewAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F286461EB8DAB90077A54C /* CustomViewAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +69,13 @@
 		C72AF97C1EACCD9A0010A387 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C72AF97E1EACCE7E0010A387 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C72AF9801EACCE940010A387 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C79B05ED1EBD135D00964EA0 /* Bezier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bezier.swift; sourceTree = "<group>"; };
+		C79B05EF1EBD13F300964EA0 /* TreesAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreesAnnotationView.swift; sourceTree = "<group>"; };
 		C7DDE0D51E9A1DD000C9FD8B /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
+		C7F2863E1EB8D8850077A54C /* CustomViewAnnotation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomViewAnnotation.xib; sourceTree = "<group>"; };
+		C7F286401EB8DA070077A54C /* AnnotationTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationTableCell.swift; sourceTree = "<group>"; };
+		C7F286411EB8DA070077A54C /* AnnotationTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnnotationTableCell.xib; sourceTree = "<group>"; };
+		C7F286461EB8DAB90077A54C /* CustomViewAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +128,7 @@
 		C724B2161E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2 */ = {
 			isa = PBXGroup;
 			children = (
+				C7F2863D1EB8D7FC0077A54C /* Custom Callout */,
 				C724B2171E97C3C500BB332A /* AppDelegate.swift */,
 				C724B2191E97C3C500BB332A /* OverviewTreesViewController.swift */,
 				C724B21B1E97C3C500BB332A /* Main.storyboard */,
@@ -128,6 +141,8 @@
 				C724B24D1E97CAE900BB332A /* TableViewController.swift */,
 				C724B24F1E97E41700BB332A /* CustomAnnotation.swift */,
 				C7DDE0D51E9A1DD000C9FD8B /* DataViewController.swift */,
+				C79B05ED1EBD135D00964EA0 /* Bezier.swift */,
+				C79B05EF1EBD13F300964EA0 /* TreesAnnotationView.swift */,
 			);
 			path = Sam_Goeman_Multec_werkstuk2v2;
 			sourceTree = "<group>";
@@ -156,6 +171,17 @@
 				C724B2491E97C3CC00BB332A /* MapKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C7F2863D1EB8D7FC0077A54C /* Custom Callout */ = {
+			isa = PBXGroup;
+			children = (
+				C7F2863E1EB8D8850077A54C /* CustomViewAnnotation.xib */,
+				C7F286401EB8DA070077A54C /* AnnotationTableCell.swift */,
+				C7F286411EB8DA070077A54C /* AnnotationTableCell.xib */,
+				C7F286461EB8DAB90077A54C /* CustomViewAnnotation.swift */,
+			);
+			name = "Custom Callout";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,7 +301,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C724B2251E97C3C500BB332A /* LaunchScreen.storyboard in Resources */,
+				C7F286431EB8DA070077A54C /* AnnotationTableCell.xib in Resources */,
 				C72AF97D1EACCE7E0010A387 /* Localizable.strings in Resources */,
+				C7F2863F1EB8D8850077A54C /* CustomViewAnnotation.xib in Resources */,
 				C724B2221E97C3C500BB332A /* Assets.xcassets in Resources */,
 				C724B21D1E97C3C500BB332A /* Main.storyboard in Resources */,
 			);
@@ -304,11 +332,15 @@
 			files = (
 				C724B21A1E97C3C500BB332A /* OverviewTreesViewController.swift in Sources */,
 				C7DDE0D61E9A1DD000C9FD8B /* DataViewController.swift in Sources */,
+				C7F286471EB8DAB90077A54C /* CustomViewAnnotation.swift in Sources */,
 				C724B2201E97C3C500BB332A /* Sam_Goeman_Multec_werkstuk2v2.xcdatamodeld in Sources */,
 				C724B2181E97C3C500BB332A /* AppDelegate.swift in Sources */,
 				C724B24E1E97CAE900BB332A /* TableViewController.swift in Sources */,
+				C79B05EE1EBD135D00964EA0 /* Bezier.swift in Sources */,
 				C724B2501E97E41700BB332A /* CustomAnnotation.swift in Sources */,
 				C724B24C1E97C8EC00BB332A /* DetailTreeViewController.swift in Sources */,
+				C79B05F01EBD13F300964EA0 /* TreesAnnotationView.swift in Sources */,
+				C7F286421EB8DA070077A54C /* AnnotationTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

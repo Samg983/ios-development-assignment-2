@@ -5,12 +5,14 @@
         <attribute name="beplanting" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="diameter_van_de_kroon" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="omtrek" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="positie" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="soort" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Tree" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="Tree" positionX="-63" positionY="-18" width="128" height="195"/>
     </elements>
 </model>
